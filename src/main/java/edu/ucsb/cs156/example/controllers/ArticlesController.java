@@ -37,7 +37,6 @@ public class ArticlesController extends ApiController {
     @Autowired
     ArticlesRepository articlesRepository;
 
-   
     @GetMapping("/all")
     @PreAuthorize("hasRole('ROLE_USER')")
     public Iterable<Articles> allArticles() {
@@ -47,11 +46,11 @@ public class ArticlesController extends ApiController {
 
     @PostMapping("/post")
     public Articles postArticles(
-            @Parameter(name="title") @RequestParam String title,
-            @Parameter(name="url") @RequestParam String url,
-            @Parameter(name="explanation") @RequestParam String explanation,
-            @Parameter(name="email") @RequestParam String email,
-            @Parameter(name="date (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateAdded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAdded)
+            @Parameter(name = "title") @RequestParam String title,
+            @Parameter(name = "url") @RequestParam String url,
+            @Parameter(name = "explanation") @RequestParam String explanation,
+            @Parameter(name = "email") @RequestParam String email,
+            @Parameter(name = "date (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateAdded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAdded)
             throws JsonProcessingException {
 
         log.info("dateAdded={}", dateAdded);
@@ -68,26 +67,47 @@ public class ArticlesController extends ApiController {
         return savedArticles;
     }
 
-    @Operation(summary= "Get a single article")
+    @Operation(summary = "Get a single article")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("")
     public Articles getById(
-            @Parameter(name="id") @RequestParam Long id) {
-                Articles articles = articlesRepository.findById(id)
+            @Parameter(name = "id") @RequestParam Long id) {
+        Articles articles = articlesRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Articles.class, id));
 
         return articles;
     }
 
-    @Operation(summary= "Delete a article")
+    @Operation(summary = "Delete a article")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("")
     public Object deleteArticle(
-            @Parameter(name="id") @RequestParam Long id) {
+            @Parameter(name = "id") @RequestParam Long id) {
         Articles article = articlesRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Articles.class, id));
 
         articlesRepository.delete(article);
         return genericMessage("Article with id %s deleted".formatted(id));
+    }
+
+    @Operation(summary = "Update a single article")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("")
+    public Articles updateArticle(
+            @Parameter(name = "id") @RequestParam Long id,
+            @RequestBody @Valid Articles incoming) {
+
+        Articles articles = articlesRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Articles.class, id));
+
+        articles.setTitle(incoming.getTitle());
+        articles.setUrl(incoming.getUrl());
+        articles.setExplanation(incoming.getExplanation());
+        articles.setEmail(incoming.getEmail());
+        articles.setDateAdded(incoming.getDateAdded());
+
+        articlesRepository.save(articles);
+
+        return articles;
     }
 }
