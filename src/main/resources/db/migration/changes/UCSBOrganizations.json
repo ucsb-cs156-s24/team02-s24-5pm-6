@@ -1,0 +1,68 @@
+{ "databaseChangeLog": [
+    {
+        "changeSet": {
+          "id": "UCSBDiningCommons-1",
+          "author": "LindseyW",
+          "preConditions": [
+            {
+              "onFail": "MARK_RAN"
+            },
+            {
+              "not": [
+                {
+                  "tableExists": {
+                    "tableName": "UCSBORGANIZATIONS"
+                  }
+                }
+              ]
+            }
+          ],
+          "changes": [
+            {
+              "createTable": {
+                "columns": [
+                  {
+                    "column": {
+                      "constraints": {
+                        "primaryKey": true,
+                        "primaryKeyName": "CONSTRAINT_1"
+                      },
+                      "name": "CODE",
+                      "type": "STRING(255)"
+                    }
+                  },
+                  {
+                    "column": {
+                      "constraints": {
+                        "nullable": false
+                      },
+                      "name": "ORG_TRANSLATION_SHORT",
+                      "type": "STRING(255)"
+                    }
+                  },
+                  {
+                    "column": {
+                      "constraints": {
+                        "nullable": false
+                      },
+                      "name": "ORG_TRANSLATION",
+                      "type": "STRING(255)"
+                    }
+                  },
+                  {
+                    "column": {
+                      "constraints": {
+                        "nullable": false
+                      },
+                      "name": "INACTIVE",
+                      "type": "BOOLEAN"
+                    }
+                  }]
+                ,
+                "tableName": "UCSBDININGCOMMONS"
+              }
+            }]
+
+        }
+    }
+]}
