@@ -1,7 +1,7 @@
 { "databaseChangeLog": [
     {
         "changeSet": {
-          "id": "UCSBDiningCommons-1",
+          "id": "UCSBOrganizations-1",
           "author": "LindseyW",
           "preConditions": [
             {
@@ -27,8 +27,8 @@
                         "primaryKey": true,
                         "primaryKeyName": "CONSTRAINT_1"
                       },
-                      "name": "CODE",
-                      "type": "STRING(255)"
+                      "name": "ORG_CODE",
+                      "type": "VARCHAR(255)"
                     }
                   },
                   {
@@ -37,7 +37,7 @@
                         "nullable": false
                       },
                       "name": "ORG_TRANSLATION_SHORT",
-                      "type": "STRING(255)"
+                      "type": "VARCHAR(255)"
                     }
                   },
                   {
@@ -46,7 +46,7 @@
                         "nullable": false
                       },
                       "name": "ORG_TRANSLATION",
-                      "type": "STRING(255)"
+                      "type": "VARCHAR(255)"
                     }
                   },
                   {
@@ -55,11 +55,11 @@
                         "nullable": false
                       },
                       "name": "INACTIVE",
-                      "type": "BOOLEAN"
+                      "type": "BOOL"
                     }
                   }]
                 ,
-                "tableName": "UCSBDININGCOMMONS"
+                "tableName": "UCSBORGANIZATIONS"
               }
             }]
 
