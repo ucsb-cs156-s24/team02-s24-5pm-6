@@ -46,7 +46,7 @@ public class UCSBOrganizationsController extends ApiController {
             @Parameter(name = "orgCode") @RequestParam String orgCode,
             @Parameter(name = "orgTranslationShort") @RequestParam String orgTranslationShort,
             @Parameter(name = "orgTranslation") @RequestParam String orgTranslation,
-            @Parameter(name = "inactive") @RequestParam boolean inactive) {
+            @Parameter(name = "inactive") @RequestParam Boolean inactive) {
 
         UCSBOrganizations organizations = new UCSBOrganizations();
         organizations.setOrgCode(orgCode);
