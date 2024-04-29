@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ArticlesController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">team02</a> &gt; <a href="index.source.html" class="el_package">edu.ucsb.cs156.example.controllers</a> &gt; <span class="el_source">ArticlesController.java</span></div><h1>ArticlesController.java</h1><pre class="source lang-java linenums">package edu.ucsb.cs156.example.controllers;
 
 import edu.ucsb.cs156.example.entities.Articles;
+import edu.ucsb.cs156.example.entities.UCSBDate;
 import edu.ucsb.cs156.example.errors.EntityNotFoundException;
 import edu.ucsb.cs156.example.repositories.ArticlesRepository;
 
@@ -30,8 +31,8 @@ import java.time.LocalDateTime;
 @Tag(name = &quot;Articles&quot;)
 @RequestMapping(&quot;/api/articles&quot;)
 @RestController
-<span class="fc" id="L33">@Slf4j</span>
-<span class="fc" id="L34">public class ArticlesController extends ApiController {</span>
+<span class="fc" id="L34">@Slf4j</span>
+<span class="fc" id="L35">public class ArticlesController extends ApiController {</span>
 
     @Autowired
     ArticlesRepository articlesRepository;
@@ -40,8 +41,8 @@ import java.time.LocalDateTime;
     @GetMapping(&quot;/all&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
     public Iterable&lt;Articles&gt; allArticles() {
-<span class="fc" id="L43">        Iterable&lt;Articles&gt; articles = articlesRepository.findAll();</span>
-<span class="fc" id="L44">        return articles;</span>
+<span class="fc" id="L44">        Iterable&lt;Articles&gt; articles = articlesRepository.findAll();</span>
+<span class="fc" id="L45">        return articles;</span>
     }
 
     @PostMapping(&quot;/post&quot;)
@@ -53,18 +54,29 @@ import java.time.LocalDateTime;
             @Parameter(name=&quot;dateAdded&quot;) @RequestParam(&quot;dateAdded&quot;) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAdded)
             throws JsonProcessingException {
 
-<span class="fc" id="L56">        log.info(&quot;dateAdded={}&quot;, dateAdded);</span>
+<span class="fc" id="L57">        log.info(&quot;dateAdded={}&quot;, dateAdded);</span>
 
-<span class="fc" id="L58">        Articles articles = new Articles();</span>
-<span class="fc" id="L59">        articles.setTitle(title);</span>
-<span class="fc" id="L60">        articles.setUrl(url);</span>
-<span class="fc" id="L61">        articles.setExplanation(explanation);</span>
-<span class="fc" id="L62">        articles.setEmail(email);</span>
-<span class="fc" id="L63">        articles.setDateAdded(dateAdded);</span>
+<span class="fc" id="L59">        Articles articles = new Articles();</span>
+<span class="fc" id="L60">        articles.setTitle(title);</span>
+<span class="fc" id="L61">        articles.setUrl(url);</span>
+<span class="fc" id="L62">        articles.setExplanation(explanation);</span>
+<span class="fc" id="L63">        articles.setEmail(email);</span>
+<span class="fc" id="L64">        articles.setDateAdded(dateAdded);</span>
 
-<span class="fc" id="L65">        Articles savedArticles = articlesRepository.save(articles);</span>
+<span class="fc" id="L66">        Articles savedArticles = articlesRepository.save(articles);</span>
 
-<span class="fc" id="L67">        return savedArticles;</span>
+<span class="fc" id="L68">        return savedArticles;</span>
+    }
+
+    @Operation(summary= &quot;Get a single article&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @GetMapping(&quot;&quot;)
+    public Articles getById(
+            @Parameter(name=&quot;id&quot;) @RequestParam Long id) {
+<span class="fc" id="L76">                Articles articles = articlesRepository.findById(id)</span>
+<span class="fc" id="L77">                .orElseThrow(() -&gt; new EntityNotFoundException(Articles.class, id));</span>
+
+<span class="fc" id="L79">        return articles;</span>
     }
 
 }
