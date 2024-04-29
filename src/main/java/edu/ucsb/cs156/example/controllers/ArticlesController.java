@@ -37,6 +37,7 @@ public class ArticlesController extends ApiController {
     @Autowired
     ArticlesRepository articlesRepository;
 
+    @Operation(summary= "List all articles")
     @GetMapping("/all")
     @PreAuthorize("hasRole('ROLE_USER')")
     public Iterable<Articles> allArticles() {
@@ -44,6 +45,7 @@ public class ArticlesController extends ApiController {
         return articles;
     }
 
+    @Operation(summary= "Create a new article")
     @PostMapping("/post")
     public Articles postArticles(
             @Parameter(name = "title") @RequestParam String title,
