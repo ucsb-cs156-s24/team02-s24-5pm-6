@@ -50,7 +50,7 @@ public class ArticlesController extends ApiController {
             @Parameter(name = "url") @RequestParam String url,
             @Parameter(name = "explanation") @RequestParam String explanation,
             @Parameter(name = "email") @RequestParam String email,
-            @Parameter(name = "date") @RequestParam("dateAdded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAdded)
+            @Parameter(name = "dateAdded") @RequestParam("dateAdded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAdded)
             throws JsonProcessingException {
 
         log.info("dateAdded={}", dateAdded);
