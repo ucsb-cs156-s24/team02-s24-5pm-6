@@ -80,7 +80,7 @@ public class ArticlesController extends ApiController {
         return articles;
     }
 
-    @Operation(summary = "Delete a article")
+    @Operation(summary = "Delete an article")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("")
     public Object deleteArticle(
