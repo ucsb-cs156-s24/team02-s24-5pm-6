@@ -6,8 +6,8 @@ Instructions: <https://ucsb-cs156.github.io/s24/lab/team02.html>
 | Table                       | Team Member  | Github Id      |
 |-----------------------------|--------------|----------------|
 | `UCSBDiningCommonsMenuItem` | Liz          | andyinnie      |
-| `UCSBOrganization`          | Lindsey      | amisra0        |
-| `RecommendationRequest`     | Anika        | robertg        |
+| `UCSBOrganization`          | Lindsey      | lindseywn      |
+| `RecommendationRequest`     | Anika        | amisra0        |
 | `MenuItemReview`            | Yuji         | yuji-sakaguchi |
 | `HelpRequest`               | Wesley       | jeffsmithepic  |
 | `Articles`                  | Diya         | diyaparm       |
