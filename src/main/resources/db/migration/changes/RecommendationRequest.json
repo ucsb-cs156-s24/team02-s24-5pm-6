@@ -27,7 +27,7 @@
                         "primaryKey": true,
                         "primaryKeyName": "CONSTRAINT_9"
                       },
-                      "name": "CODE",
+                      "name": "REQUESTER_EMAIL",
                       "type": "VARCHAR(255)"
                     }
                   },
@@ -36,44 +36,38 @@
                       "constraints": {
                         "nullable": false
                       },
-                      "name": "HAS_DINING_CAM",
-                      "type": "BOOLEAN"
-                    }
-                  },
-                  {
-                    "column": {
-                      "constraints": {
-                        "nullable": false
-                      },
-                      "name": "HAS_SACK_MEAL",
-                      "type": "BOOLEAN"
-                    }
-                  },
-                  {
-                    "column": {
-                      "constraints": {
-                        "nullable": false
-                      },
-                      "name": "HAS_TAKE_OUT_MEAL",
-                      "type": "BOOLEAN"
-                    }
-                  },
-                  {
-                    "column": {
-                      "name": "LATITUDE",
-                      "type": "DOUBLE(17)"
-                    }
-                  },
-                  {
-                    "column": {
-                      "name": "LONGITUDE",
-                      "type": "DOUBLE(17)"
-                    }
-                  },
-                  {
-                    "column": {
-                      "name": "NAME",
+                      "name": "PROFESSOR_EMAIL",
                       "type": "VARCHAR(255)"
+                    }
+                  },
+                  {
+                    "column": {
+                      "constraints": {
+                        "nullable": false
+                      },
+                      "name": "EXPLANATION",
+                      "type": "VARCHAR(255)"
+                    }
+                  },
+                  {
+                    "column": {
+                      "constraints": {
+                        "nullable": false
+                      },
+                      "name": "DATE_REQUESTED",
+                      "type": "TIMESTAMP"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "DATE_NEEDED",
+                      "type": "TIMESTAMP"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "DONE",
+                      "type": "BOOLEAN"
                     }
                   }]
                 ,
