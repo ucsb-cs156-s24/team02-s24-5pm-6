@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s24/team02-s24-5pm-6
 owner: ucsb-cs156-s24
 repo_name: team02-s24-5pm-6
-pull_requests: [{"author":{"id":"U_kgDOB0qzkg","is_bot":false,"login":"lindseywn","name":""},"headRefName":"Lindsey-Org-GETPUTDELETE","number":61,"title":"LW - added GET, POST, DELETE and tests for Organizations","url":"https://github.com/ucsb-cs156-s24/team02-s24-5pm-6/pull/61"},{"author":{"id":"U_kgDOB0qzkg","is_bot":false,"login":"lindseywn","name":""},"headRefName":"Lindsey-UCSBOrganizationController","number":50,"title":"LW - Add controller, GET and POST, and tests for UCSBOrganizations","url":"https://github.com/ucsb-cs156-s24/team02-s24-5pm-6/pull/50"}]
+pull_requests: []
