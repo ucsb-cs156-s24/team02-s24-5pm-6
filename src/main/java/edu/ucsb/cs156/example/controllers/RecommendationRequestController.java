@@ -52,16 +52,15 @@ public class RecommendationRequestController extends ApiController{
             @Parameter(name="professorEmail") @RequestParam String professorEmail,
             @Parameter(name="explanation") @RequestParam String explanation,
             @Parameter(name="done") @RequestParam boolean done,
-            @Parameter(name="dateRequested (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("localDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateRequested)
-            /*throws JsonProcessingException*/, //does this get included?!!
-            @Parameter(name="dateNeeded (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("localDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateNeeded)
+            @Parameter(name="dateRequested") @RequestParam("dateRequested") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateRequested,
+            @Parameter(name="dateNeeded") @RequestParam("dateNeeded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateNeeded)
             throws JsonProcessingException
             {
 
         // For an explanation of @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
         // See: https://www.baeldung.com/spring-date-parameters
 
-        log.info("localDateTime={}", localDateTime);
+        //log.info("localDateTime={}", localDateTime); WHAT DO WE LOG
 
         RecommendationRequest recRequest = new RecommendationRequest();
         recRequest.setRequesterEmail(requesterEmail);
@@ -71,11 +70,10 @@ public class RecommendationRequestController extends ApiController{
         recRequest.setDateRequested(dateRequested);
         recRequest.setDateNeeded(dateNeeded);
 
-        RecommendationRequest savedRecRequest = RecommendationRequestRepository.save(recRequest);
+        RecommendationRequest savedRecRequest = recommendationRequestRepository.save(recRequest);
 
-        return savedUcsbDate;
+        return savedRecRequest;
     }
 }
 
-//idk how line 56 will work, can't push this change yet I need that fixed
-//finished up to step 5
+//How to test and debug on Swagger?? 
