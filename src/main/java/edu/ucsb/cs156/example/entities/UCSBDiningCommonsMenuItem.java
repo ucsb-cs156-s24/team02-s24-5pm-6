@@ -17,9 +17,7 @@ public class UCSBDiningCommonsMenuItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "DININGCOMMONSCODE")
     private String diningCommonsCode;
-
     private String name;
     private String station;
 }

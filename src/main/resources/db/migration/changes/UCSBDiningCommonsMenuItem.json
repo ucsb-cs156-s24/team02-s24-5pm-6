@@ -2,7 +2,7 @@
   "databaseChangeLog": [
     {
       "changeSet": {
-        "id": "UCSBDiningCommonsMenuItems-1",
+        "id": "UCSBDiningCommonsMenuItems-2",
         "author": "LizM",
         "preConditions": [
           {
@@ -27,7 +27,7 @@
                     "autoIncrement": true,
                     "constraints": {
                       "primaryKey": true,
-                      "primaryKeyName": "CONSTRAINT_3"
+                      "primaryKeyName": "CONSTRAINT_10"
                     },
                     "name": "ID",
                     "type": "BIGINT"
@@ -35,7 +35,7 @@
                 },
                 {
                   "column": {
-                    "name": "DININGCOMMONSCODE",
+                    "name": "DINING_COMMONS_CODE",
                     "type": "VARCHAR(255)"
                   }
                 },
@@ -52,7 +52,7 @@
                   }
                 }
               ],
-              "tableName": "UCSBDININCOMMONSMENUITEMS"
+              "tableName": "UCSBDININGCOMMONSMENUITEMS"
             }
           }
         ]
