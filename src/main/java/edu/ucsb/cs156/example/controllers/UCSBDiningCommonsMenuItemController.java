@@ -1,7 +1,6 @@
 package edu.ucsb.cs156.example.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import edu.ucsb.cs156.example.entities.UCSBDate;
 import edu.ucsb.cs156.example.entities.UCSBDiningCommonsMenuItem;
 import edu.ucsb.cs156.example.errors.EntityNotFoundException;
 import edu.ucsb.cs156.example.repositories.UCSBDiningCommonsMenuItemRepository;
@@ -59,7 +58,7 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
     @Operation(summary= "Update a single menu item")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("")
-    public UCSBDiningCommonsMenuItem updateUCSBDate(
+    public UCSBDiningCommonsMenuItem updateMenuItem(
             @Parameter(name="id") @RequestParam Long id,
             @RequestBody @Valid UCSBDiningCommonsMenuItem incoming) {
 
@@ -73,5 +72,17 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
         ucsbDiningCommonsMenuItemRepository.save(item);
 
         return item;
+    }
+
+    @Operation(summary= "Delete a menu item")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("")
+    public Object deleteMenuItem(
+            @Parameter(name="id") @RequestParam Long id) {
+        UCSBDiningCommonsMenuItem item = ucsbDiningCommonsMenuItemRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, id));
+
+        ucsbDiningCommonsMenuItemRepository.delete(item);
+        return genericMessage("UCSBDiningCommonsMenuItem with id %s deleted".formatted(id));
     }
 }
