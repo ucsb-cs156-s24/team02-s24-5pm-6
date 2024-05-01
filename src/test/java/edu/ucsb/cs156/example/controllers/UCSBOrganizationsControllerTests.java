@@ -108,7 +108,7 @@ public class UCSBOrganizationsControllerTests extends ControllerTestCase {
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
-        public void an_admin_user_can_post_a_new_commons() throws Exception {
+        public void an_admin_user_can_post_a_new_organizations() throws Exception {
                 // arrange
 
                 UCSBOrganizations zpr = UCSBOrganizations.builder()
@@ -191,7 +191,7 @@ public class UCSBOrganizationsControllerTests extends ControllerTestCase {
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
-        public void admin_can_edit_an_existing_commons() throws Exception {
+        public void admin_can_edit_an_existing_organizations() throws Exception {
                 // arrange
 
                 UCSBOrganizations zprOrig = UCSBOrganizations.builder()
@@ -202,9 +202,9 @@ public class UCSBOrganizationsControllerTests extends ControllerTestCase {
                                 .build();
 
                 UCSBOrganizations zprEdited = UCSBOrganizations.builder()
-                                .orgCode("ZPR")
-                                .orgTranslationShort("ZETA PHI RHO")
-                                .orgTranslation("ZETA PHI RHO")
+                                .orgCode("ZPRR")
+                                .orgTranslationShort("ZET PH RH")
+                                .orgTranslation("ZETA PHI RHO FRATERNITY")
                                 .inactive(true)
                                 .build();
 
@@ -231,7 +231,7 @@ public class UCSBOrganizationsControllerTests extends ControllerTestCase {
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
-        public void admin_cannot_edit_commons_that_does_not_exist() throws Exception {
+        public void admin_cannot_edit_organizations_that_does_not_exist() throws Exception {
                 // arrange
 
                 UCSBOrganizations editedOrg = UCSBOrganizations.builder()
