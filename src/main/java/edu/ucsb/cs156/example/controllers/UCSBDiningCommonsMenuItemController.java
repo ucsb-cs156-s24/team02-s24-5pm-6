@@ -1,6 +1,7 @@
 package edu.ucsb.cs156.example.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import edu.ucsb.cs156.example.entities.UCSBDate;
 import edu.ucsb.cs156.example.entities.UCSBDiningCommonsMenuItem;
 import edu.ucsb.cs156.example.errors.EntityNotFoundException;
 import edu.ucsb.cs156.example.repositories.UCSBDiningCommonsMenuItemRepository;
@@ -11,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Tag(name = "UCSBDiningCommonsMenuItems")
 @RequestMapping("/api/ucsbdiningcommonsmenuitem")
@@ -51,5 +54,24 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
             @Parameter(name="id") @RequestParam Long id) {
         return ucsbDiningCommonsMenuItemRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, id));
+    }
+
+    @Operation(summary= "Update a single menu item")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("")
+    public UCSBDiningCommonsMenuItem updateUCSBDate(
+            @Parameter(name="id") @RequestParam Long id,
+            @RequestBody @Valid UCSBDiningCommonsMenuItem incoming) {
+
+        UCSBDiningCommonsMenuItem item = ucsbDiningCommonsMenuItemRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, id));
+
+        item.setStation(incoming.getStation());
+        item.setName(incoming.getName());
+        item.setDiningCommonsCode(incoming.getDiningCommonsCode());
+
+        ucsbDiningCommonsMenuItemRepository.save(item);
+
+        return item;
     }
 }
