@@ -35,10 +35,11 @@ import java.time.LocalDateTime;
 public class RecommendationRequestController extends ApiController{
     @Autowired
     RecommendationRequestRepository recommendationRequestRepository;
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
-    public Iterable<RecommendationRequest> allEmails() {
-        Iterable<RecommendationRequest> emails = recommendationRequestRepository.findAll();
-        return emails;
+    public Iterable<RecommendationRequest> allRequests() {
+        Iterable<RecommendationRequest> requests = recommendationRequestRepository.findAll();
+        return requests;
     }
     /*String requesterEmail;
   String professorEmail;
