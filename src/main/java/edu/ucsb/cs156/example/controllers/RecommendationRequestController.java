@@ -28,26 +28,63 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 import java.time.LocalDateTime;
-@Tag(name = "recommendationreq")
+@Tag(name = "RecommendationRequests")
 @RequestMapping("/api/recommendationrequest") //where is the proper api name?
 @RestController
 @Slf4j
 public class RecommendationRequestController extends ApiController{
+    
     @Autowired
     RecommendationRequestRepository recommendationRequestRepository;
+
+    @Operation(summary= "Get a recommendation request")
     @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping("/all")
-    public Iterable<RecommendationRequest> allRequests() {
-        Iterable<RecommendationRequest> requests = recommendationRequestRepository.findAll();
-        return requests;
+    @GetMapping("")
+    public RecommendationRequest getById(
+            @Parameter(name="id") @RequestParam Long id) {
+        RecommendationRequest recommendationRequest = recommendationRequestRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(RecommendationRequest.class, id));
+
+        return recommendationRequest;
     }
-    /*String requesterEmail;
-  String professorEmail;
-  String explanation;
-  LocalDateTime dateRequested;
-  LocalDateTime dateNeeded;
-  boolean done; */
+    
+
+    @Operation(summary= "Update a single recommendation request")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("")
+    public RecommendationRequest updateRecommendationRequest(
+            @Parameter(name="id") @RequestParam Long id,
+            @RequestBody @Valid RecommendationRequest incoming) {
+
+        RecommendationRequest recommendationRequest = recommendationRequestRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(RecommendationRequest.class, id));
+
+        recommendationRequest.setRequesterEmail(incoming.getRequesterEmail());
+        recommendationRequest.setProfessorEmail(incoming.getProfessorEmail());
+        recommendationRequest.setExplanation(incoming.getExplanation());
+        recommendationRequest.setDone(incoming.getDone());
+        recommendationRequest.setDateRequested(incoming.getDateRequested());
+        recommendationRequest.setDateNeeded(incoming.getDateNeeded());
+
+        recommendationRequestRepository.save(recommendationRequest);
+
+        return recommendationRequest;
+    }
+    @Operation(summary= "Delete a recommendation request")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("")
+    public Object deleteRecommendationRequest(
+            @Parameter(name="id") @RequestParam Long id) {
+        RecommendationRequest recommendationRequest = recommendationRequestRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(RecommendationRequest.class, id));
+
+        recommendationRequestRepository.delete(recommendationRequest);
+        return genericMessage("Recommendation Request with id %s deleted".formatted(id));
+    }
+
     @PostMapping("/post")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Operation(summary= "Create a new request")
     public RecommendationRequest postRecommendationRequest(
             @Parameter(name="requesterEmail") @RequestParam String requesterEmail,
             @Parameter(name="professorEmail") @RequestParam String professorEmail,
@@ -75,15 +112,23 @@ public class RecommendationRequestController extends ApiController{
 
         return savedRecRequest;
     }
-    @Operation(summary= "Get a single request")
     @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping("")
-    public RecommendationRequest getById(
-            @Parameter(name="id") @RequestParam Long id) {
-        RecommendationRequest recommendationRequest = recommendationRequestRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(RecommendationRequest.class, id));
-
-        return recommendationRequest;
+    @Operation(summary= "List all recommendation requests")
+    @GetMapping("/all")
+    public Iterable<RecommendationRequest> allRequests() {
+        Iterable<RecommendationRequest> requests = recommendationRequestRepository.findAll();
+        return requests;
     }
+    
+    /*String requesterEmail;
+  String professorEmail;
+  String explanation;
+  LocalDateTime dateRequested;
+  LocalDateTime dateNeeded;
+  boolean done; */
+
+    
+
+    
 }
 
