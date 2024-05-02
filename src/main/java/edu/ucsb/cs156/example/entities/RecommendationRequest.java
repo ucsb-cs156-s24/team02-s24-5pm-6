@@ -20,6 +20,7 @@ import lombok.Builder;
 public class RecommendationRequest {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
   String requesterEmail;
   String professorEmail;
   String explanation;
