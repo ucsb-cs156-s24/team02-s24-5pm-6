@@ -194,7 +194,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
                 when(recommendationRequestRepository.findById(eq(7L))).thenReturn(Optional.of(recReq1));
 
                 // act
-                MvcResult response = mockMvc.perform(get("/api/recommendationrequest?id=123"))
+                MvcResult response = mockMvc.perform(get("/api/recommendationrequest?id=7"))
                                 .andExpect(status().isOk()).andReturn();
 
                 // assert
@@ -219,9 +219,9 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
 
                 // assert
 
-                verify(recommendationRequestRepository, times(1)).findById(eq(7L));
+                verify(recommendationRequestRepository, times(1)).findById(eq(123L));
                 Map<String, Object> json = responseToJson(response);
                 assertEquals("EntityNotFoundException", json.get("type"));
-                assertEquals("id 123 not found", json.get("message"));
+                assertEquals("RecommendationRequest with id 123 not found", json.get("message"));
         }
 }
